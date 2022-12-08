@@ -10,7 +10,7 @@ export class SearchPatientComponent {
   
   pid=""
 constructor(private api:ApiService){}
-searchData:any=[]
+searchPatients:any=[]
 
 readValues=()=>
 {
@@ -23,11 +23,26 @@ readValues=()=>
       if (response.length==0) {
         alert("invalid patientid")
       } else {
-        this.searchData=response
+        this.searchPatients=response
         
       }
     }
   )
   
+}
+deleteBtnClick=(id:any)=>
+{
+  let data:any={"id":id}
+  this.api.deletePatients(data).subscribe(
+    (response:any)=>
+    {
+      console.log(response)
+      if (response.status=="success") {
+        alert("patient deleted successfully")
+      } else {
+        alert("can't delete")
+      }
+    }
+  )
 }
 }
